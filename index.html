@@ -1,0 +1,257 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>TASK PR — Website Previews</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300&family=Jost:wght@200;300;400;500&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+    :root {
+      --bg: #0e0c0a;
+      --card: #181512;
+      --card-hover: #221e1a;
+      --border: rgba(255, 255, 255, 0.05);
+      --border-hover: rgba(234, 194, 167, 0.2);
+      --gold: #c9a96e;
+      --accent: #EAC2A7;
+      --text: #dcd6cd;
+      --text-muted: #8e857b;
+      --white: #ffffff;
+    }
+    body {
+      background-color: var(--bg);
+      color: var(--text);
+      font-family: 'Jost', sans-serif;
+      font-weight: 300;
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      padding: 40px 24px;
+      overflow-x: hidden;
+      position: relative;
+    }
+    
+    /* Background decorative glow */
+    body::before {
+      content: '';
+      position: absolute;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(234, 194, 167, 0.03) 0%, rgba(0,0,0,0) 70%);
+      top: 10%;
+      left: 10%;
+      z-index: 0;
+      pointer-events: none;
+    }
+    body::after {
+      content: '';
+      position: absolute;
+      width: 500px;
+      height: 500px;
+      background: radial-gradient(circle, rgba(201, 169, 110, 0.03) 0%, rgba(0,0,0,0) 70%);
+      bottom: 10%;
+      right: 10%;
+      z-index: 0;
+      pointer-events: none;
+    }
+
+    .container {
+      max-width: 1000px;
+      width: 100%;
+      z-index: 1;
+      text-align: center;
+    }
+
+    header {
+      margin-bottom: 60px;
+    }
+    .logo-area {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 32px;
+      letter-spacing: 6px;
+      color: var(--white);
+      text-transform: uppercase;
+      margin-bottom: 16px;
+    }
+    .logo-area em {
+      font-style: italic;
+      color: var(--gold);
+    }
+    .subtitle {
+      font-size: 14px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--text-muted);
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 24px;
+      margin-bottom: 60px;
+    }
+
+    .card {
+      background: var(--card);
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      padding: 40px 30px;
+      text-align: left;
+      text-decoration: none;
+      color: inherit;
+      transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      height: 100%;
+      position: relative;
+      overflow: hidden;
+    }
+    .card::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 3px;
+      background: linear-gradient(90deg, var(--gold), var(--accent));
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    .card:hover {
+      background: var(--card-hover);
+      border-color: var(--border-hover);
+      transform: translateY(-5px);
+      box-shadow: 0 12px 30px rgba(0, 0, 0, 0.3);
+    }
+    .card:hover::after {
+      opacity: 1;
+    }
+
+    .card-meta {
+      font-size: 10px;
+      font-family: monospace;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--gold);
+      margin-bottom: 20px;
+    }
+    .card-title {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: 26px;
+      font-weight: 400;
+      color: var(--white);
+      margin-bottom: 12px;
+      line-height: 1.2;
+    }
+    .card-desc {
+      font-size: 13.5px;
+      line-height: 1.6;
+      color: var(--text-muted);
+      margin-bottom: 30px;
+    }
+
+    .card-btn {
+      display: inline-flex;
+      align-items: center;
+      font-size: 11px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--accent);
+      font-weight: 500;
+      margin-top: auto;
+      transition: gap 0.2s ease;
+    }
+    .card-btn svg {
+      width: 14px;
+      height: 14px;
+      margin-left: 8px;
+      fill: none;
+      stroke: currentColor;
+      stroke-width: 2;
+      transition: transform 0.2s ease;
+    }
+    .card:hover .card-btn {
+      color: var(--white);
+    }
+    .card:hover .card-btn svg {
+      transform: translateX(4px);
+    }
+
+    footer {
+      font-size: 12px;
+      color: var(--text-muted);
+      letter-spacing: 1px;
+      border-top: 1px solid var(--border);
+      padding-top: 24px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+    .footer-left {
+      text-align: left;
+    }
+    .footer-right {
+      text-align: right;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <header>
+      <div class="logo-area">TASK PR <em>previews</em></div>
+      <div class="subtitle">Client Review Dashboard</div>
+    </header>
+
+    <div class="grid">
+      <!-- Card 1 -->
+      <a href="TaskPR_Refresh.html" class="card">
+        <div>
+          <div class="card-meta">Option A</div>
+          <h2 class="card-title">Light Design Refresh</h2>
+          <p class="card-desc">A clean, elegant, and light aesthetic using Jost & Cormorant Garamond typography. Ideal for a high-end, airy fashion & lifestyle feel.</p>
+        </div>
+        <div class="card-btn">
+          View Proposal
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+
+      <!-- Card 2 -->
+      <a href="TaskPR_Full_Preview.html" class="card">
+        <div>
+          <div class="card-meta">Option B</div>
+          <h2 class="card-title">Dark Full Preview</h2>
+          <p class="card-desc">A bold, luxury dark mode experience featuring gold accents, structured grid layouts, and striking typography choices.</p>
+        </div>
+        <div class="card-btn">
+          View Proposal
+          <svg viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </div>
+      </a>
+    </div>
+
+    <footer>
+      <div class="footer-left">
+        &copy; 2026 TASK PR. All rights reserved.
+      </div>
+      <div class="footer-right">
+        Select a version above to preview.
+      </div>
+    </footer>
+  </div>
+
+</body>
+</html>
