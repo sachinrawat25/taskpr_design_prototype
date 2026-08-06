@@ -273,6 +273,110 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
   .foot-grid{grid-template-columns:1fr 1fr}
   .about-grid{grid-template-columns:1fr;gap:40px;max-width:560px}
   .about-visual{aspect-ratio:16/10}
+/* ============ CUSTOM CURSOR (pointer devices only) ============ */
+@media (hover:hover) and (pointer:fine){
+  html.cur-on,html.cur-on *{cursor:none!important}
+  .cur{position:fixed;top:0;left:0;z-index:99999;pointer-events:none;
+    border-radius:50%;transform:translate(-50%,-50%);will-change:transform}
+  .cur-ring{width:34px;height:34px;border:1.5px solid var(--accent-d);
+    transition:width .28s cubic-bezier(.16,1,.3,1),height .28s cubic-bezier(.16,1,.3,1),
+               background-color .28s ease,border-color .28s ease,opacity .25s ease}
+  .cur-dot{width:6px;height:6px;background:var(--accent-d);transition:opacity .25s ease}
+
+  /* hover-grown state */
+  .cur-ring.hot{width:58px;height:58px;background:rgba(188,129,87,.16);border-color:var(--accent-d)}
+  .cur-dot.hot{opacity:0}
+  /* label that appears inside the ring over image cards */
+  .cur-ring .cur-label{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;
+    font-family:'Jost',sans-serif;font-size:8.5px;font-weight:600;letter-spacing:1.4px;
+    text-transform:uppercase;color:var(--accent-d);opacity:0;transition:opacity .2s ease}
+  .cur-ring.labelled .cur-label{opacity:1}
+  .cur-ring.labelled{width:72px;height:72px;background:rgba(255,255,255,.9);border-color:transparent;
+    box-shadow:0 8px 26px -10px rgba(28,26,24,.45)}
+
+  /* --- MODE: ring only --- */
+  html[data-cursor="ring"] .cur-dot{display:none}
+  /* --- MODE: dot + trailing ring --- */
+  html[data-cursor="dot"] .cur-ring{width:30px;height:30px;opacity:.75}
+  html[data-cursor="dot"] .cur-ring.hot{width:54px;height:54px;opacity:1}
+  /* --- MODE: solid disc, inverts what's under it --- */
+  html[data-cursor="blend"] .cur-ring{width:26px;height:26px;background:var(--accent);
+    border-color:transparent;mix-blend-mode:difference}
+  html[data-cursor="blend"] .cur-ring.hot{width:64px;height:64px;background:#fff}
+  html[data-cursor="blend"] .cur-dot{display:none}
+  html[data-cursor="blend"] .cur-ring .cur-label{display:none}
+  /* --- MODE: minimal — tiny ink dot, becomes a hollow ring over links --- */
+  html[data-cursor="minimal"] .cur-ring{width:0;height:0;border-color:transparent;background:transparent}
+  html[data-cursor="minimal"] .cur-dot{width:9px;height:9px;background:var(--ink)}
+  html[data-cursor="minimal"] .cur-ring.hot{width:40px;height:40px;border-color:var(--ink);background:transparent}
+  html[data-cursor="minimal"] .cur-dot.hot{opacity:0}
+  html[data-cursor="minimal"] .cur-ring.labelled{background:var(--ink);border-color:transparent;width:70px;height:70px}
+  html[data-cursor="minimal"] .cur-ring.labelled .cur-label{color:#fff}
+
+  /* --- MODE: magnetic — ring snaps to and wraps the button it's over --- */
+  html[data-cursor="magnetic"] .cur-ring{width:30px;height:30px;border-width:1.5px}
+  html[data-cursor="magnetic"] .cur-dot{width:5px;height:5px}
+  html[data-cursor="magnetic"] .cur-ring.snap{border-radius:4px;background:rgba(188,129,87,.1);
+    transition:width .3s cubic-bezier(.16,1,.3,1),height .3s cubic-bezier(.16,1,.3,1),
+               border-radius .3s ease,background-color .3s ease}
+  html[data-cursor="magnetic"] .cur-ring.snap .cur-label{display:none}
+  html[data-cursor="magnetic"] .cur-dot.hot{opacity:0}
+
+  /* --- MODE: crosshair — editorial, architectural --- */
+  html[data-cursor="cross"] .cur-ring{width:26px;height:26px;border-color:transparent;background:transparent}
+  html[data-cursor="cross"] .cur-ring::before,html[data-cursor="cross"] .cur-ring::after{
+    content:'';position:absolute;background:var(--ink);transition:all .3s cubic-bezier(.16,1,.3,1)}
+  html[data-cursor="cross"] .cur-ring::before{left:50%;top:0;bottom:0;width:1px;transform:translateX(-50%)}
+  html[data-cursor="cross"] .cur-ring::after{top:50%;left:0;right:0;height:1px;transform:translateY(-50%)}
+  html[data-cursor="cross"] .cur-ring.hot{width:46px;height:46px}
+  html[data-cursor="cross"] .cur-ring.hot::before,html[data-cursor="cross"] .cur-ring.hot::after{background:var(--accent-d)}
+  html[data-cursor="cross"] .cur-dot{display:none}
+  html[data-cursor="cross"] .cur-ring.labelled::before,html[data-cursor="cross"] .cur-ring.labelled::after{opacity:0}
+  html[data-cursor="cross"] .cur-ring.labelled{background:rgba(255,255,255,.92)}
+
+  /* --- MODE: native --- */
+  html[data-cursor="native"] .cur{display:none}
+  html[data-cursor="native"],html[data-cursor="native"] *{cursor:auto!important}
+  html[data-cursor="native"] a,html[data-cursor="native"] button,
+  html[data-cursor="native"] .svc,html[data-cursor="native"] .ncard{cursor:pointer!important}
+
+  /* --- MODE: arrow — custom branded SVG arrow, drawn by the OS, zero lag --- */
+  html[data-cursor="arrow"] .cur{display:none}
+  html[data-cursor="arrow"]{cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M5 2 19 11 12.5 12.6 9.6 19Z' fill='%231c1a18' stroke='%23fff' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 5 2, auto}
+  html[data-cursor="arrow"] a,html[data-cursor="arrow"] button,html[data-cursor="arrow"] .btn,
+  html[data-cursor="arrow"] .nl,html[data-cursor="arrow"] .nav-cta,html[data-cursor="arrow"] [role="button"]{
+    cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M5 2 19 11 12.5 12.6 9.6 19Z' fill='%23bc8157' stroke='%23fff' stroke-width='1.4' stroke-linejoin='round'/%3E%3C/svg%3E") 5 2, pointer}
+  html[data-cursor="arrow"] .svc,html[data-cursor="arrow"] .ncard,html[data-cursor="arrow"] .ig{
+    cursor:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='42' height='42'%3E%3Ccircle cx='21' cy='21' r='20' fill='%231c1a18'/%3E%3Cpath d='M16 26 26 16M18 16h8v8' stroke='%23fff' stroke-width='1.6' fill='none' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E") 21 21, pointer}
+  html[data-cursor="arrow"] .testi-track{cursor:grab}
+  html[data-cursor="arrow"] .testi-track:active{cursor:grabbing}
+  html[data-cursor="arrow"] p,html[data-cursor="arrow"] h1,html[data-cursor="arrow"] h2,
+  html[data-cursor="arrow"] h3,html[data-cursor="arrow"] input,html[data-cursor="arrow"] textarea{cursor:text}
+
+  /* --- MODE: hand — system icons, used expressively --- */
+  html[data-cursor="hand"] .cur{display:none}
+  html[data-cursor="hand"],html[data-cursor="hand"] *{cursor:default}
+  html[data-cursor="hand"] a,html[data-cursor="hand"] button,html[data-cursor="hand"] .btn,
+  html[data-cursor="hand"] .nl,html[data-cursor="hand"] .nav-cta,
+  html[data-cursor="hand"] .svc,html[data-cursor="hand"] .ncard{cursor:pointer}
+  html[data-cursor="hand"] .ig{cursor:zoom-in}
+  html[data-cursor="hand"] .testi-track{cursor:grab}
+  html[data-cursor="hand"] .testi-track:active{cursor:grabbing}
+  html[data-cursor="hand"] p,html[data-cursor="hand"] h1,html[data-cursor="hand"] h2,
+  html[data-cursor="hand"] h3,html[data-cursor="hand"] .tq{cursor:text}
+  html[data-cursor="hand"] input,html[data-cursor="hand"] textarea{cursor:text}
+}
+@media (hover:none),(pointer:coarse){.cur,.cur-switch{display:none!important}}
+
+/* dev-only switcher — delete this block and its markup when a mode is chosen */
+.cur-switch{position:fixed;right:14px;bottom:14px;z-index:100000;display:flex;gap:6px;
+  background:rgba(255,255,255,.94);border:1px solid var(--line2);border-radius:100px;
+  padding:6px;box-shadow:0 10px 30px -12px rgba(28,26,24,.35)}
+.cur-switch button{font-family:'Jost',sans-serif;font-size:10px;font-weight:600;letter-spacing:1.2px;
+  text-transform:uppercase;padding:7px 13px;border:none;border-radius:100px;cursor:pointer;
+  background:transparent;color:var(--ink2);transition:all .2s}
+.cur-switch button.on{background:var(--ink);color:#fff}
+
 }
 @media(max-width:680px){
   nav{padding:0 22px;height:66px}
@@ -299,6 +403,8 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
     <a class="nl">Contact</a>
     <a class="nav-cta">Work With Us</a>
   </div>
+  .svc{aspect-ratio:4/3}
+  .svc-rest{left:20px;right:20px}
 </nav>
 
 <!-- HERO — video, transparent header floats over it until scroll -->
@@ -335,8 +441,30 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
   <div class="sec-head">
     <span class="eyebrow">What We Do</span>
     <h2>Integrated communications,<br>built for modern brands</h2>
+  <div class="scroll-cue">Scroll</div>
     <p>Six disciplines working as one strategy — not separate teams.</p>
   </div>
+<!-- LOGO STRIP -->
+<div class="hero-mq">
+  <div class="hero-mq-label">Trusted by <b>TASK PR</b> clients</div>
+  <div class="hero-mq-track" id="heroMqTrack">
+    <div class="hero-mq-item"><img src="images/clients/trans/falke-dark.png" alt="FALKE"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/marccain-dark.png" alt="Marc Cain"></div>
+    <div class="hero-mq-item"><img src="images/clients/sofa-dark.png" alt="sofa.com"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/seasalt-dark.png" alt="Seasalt Cornwall"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/mackenzie-dark.png" alt="MacKenzie-Childs"></div>
+    <div class="hero-mq-item"><img src="images/clients/reallywild-dark.png" alt="Really Wild"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/dkny-2.png" alt="DKNY"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/olivia-b.png" alt="Olivia Burton"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/tateossian-300.png" alt="Tateossian"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/reebok-300x.png" alt="Reebok"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/jaeger-300.png" alt="Jaeger"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/barneys.png" alt="Barneys Originals"></div>
+    <div class="hero-mq-item"><img src="images/clients/Sealskinz-logo-v2-02.png" alt="Sealskinz"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/calvin.png" alt="Calvin Klein"></div>
+  </div>
+</div>
+
   <div class="svc-grid stagger">
     <article class="svc" tabindex="0"><img class="svc-bg" src="images/pr-1.jpg" alt="" loading="lazy"><span class="svc-veil"></span><div class="svc-rest"><div class="svc-rest-row"><span class="svc-n">01</span><h3>Public Relations</h3><span class="svc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span></div><span class="svc-desc">Strategic editorial coverage across the most prestigious UK and German print and digital titles.</span></div><div class="svc-panel"><span class="pn" aria-hidden="true">01</span><span class="pt" aria-hidden="true">Public Relations</span><span class="prule"></span><p>Strategic editorial coverage across the most prestigious UK and German print and digital titles.</p><span class="plink">Explore</span></div></article>
     <article class="svc" tabindex="0"><img class="svc-bg" src="images/influencer-marketing-1.jpg" alt="" loading="lazy"><span class="svc-veil"></span><div class="svc-rest"><div class="svc-rest-row"><span class="svc-n">02</span><h3>Influencer Marketing</h3><span class="svc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span></div><span class="svc-desc">Creative concepts, organic outreach and contract negotiation with the creators who drive culture.</span></div><div class="svc-panel"><span class="pn" aria-hidden="true">02</span><span class="pt" aria-hidden="true">Influencer Marketing</span><span class="prule"></span><p>Creative concepts, organic outreach and contract negotiation with the creators who drive culture.</p><span class="plink">Explore</span></div></article>
@@ -400,8 +528,6 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
   <div class="mq">
     <div class="mq-row rev" data-clone>
       <div class="mq-item"><img src="images/clients/Sealskinz-logo-v2-02.png" alt="Sealskinz"></div>
-  .svc{aspect-ratio:4/3}
-  .svc-rest{left:20px;right:20px}
       <div class="mq-item"><img src="images/clients/rokhz-1.jpg" alt="ROKH"></div>
       <div class="mq-item"><img src="images/clients/calvin.png" alt="Calvin Klein"></div>
       <div class="mq-item"><img src="images/clients/tommy.png" alt="Tommy Hilfiger"></div>
@@ -441,30 +567,8 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
         <div class="testi-slide">
           <span class="mark">&ldquo;</span>
           <p class="tq">TASK PR has been instrumental in raising our profile in the interiors press. Their relationships with key editors have opened doors that really matter for our brand.</p>
-  <div class="scroll-cue">Scroll</div>
           <div class="ta">Head of Marketing</div><div class="tb">sofa.com</div>
         </div>
-<!-- LOGO STRIP -->
-<div class="hero-mq">
-  <div class="hero-mq-label">Trusted by <b>TASK PR</b> clients</div>
-  <div class="hero-mq-track" id="heroMqTrack">
-    <div class="hero-mq-item"><img src="images/clients/trans/falke-dark.png" alt="FALKE"></div>
-    <div class="hero-mq-item"><img src="images/clients/trans/marccain-dark.png" alt="Marc Cain"></div>
-    <div class="hero-mq-item"><img src="images/clients/sofa-dark.png" alt="sofa.com"></div>
-    <div class="hero-mq-item"><img src="images/clients/trans/seasalt-dark.png" alt="Seasalt Cornwall"></div>
-    <div class="hero-mq-item"><img src="images/clients/trans/mackenzie-dark.png" alt="MacKenzie-Childs"></div>
-    <div class="hero-mq-item"><img src="images/clients/reallywild-dark.png" alt="Really Wild"></div>
-    <div class="hero-mq-item"><img src="images/clients/trans/dkny-2.png" alt="DKNY"></div>
-    <div class="hero-mq-item"><img src="images/clients/trans/olivia-b.png" alt="Olivia Burton"></div>
-    <div class="hero-mq-item"><img src="images/clients/trans/tateossian-300.png" alt="Tateossian"></div>
-    <div class="hero-mq-item"><img src="images/clients/trans/reebok-300x.png" alt="Reebok"></div>
-    <div class="hero-mq-item"><img src="images/clients/trans/jaeger-300.png" alt="Jaeger"></div>
-    <div class="hero-mq-item"><img src="images/clients/trans/barneys.png" alt="Barneys Originals"></div>
-    <div class="hero-mq-item"><img src="images/clients/Sealskinz-logo-v2-02.png" alt="Sealskinz"></div>
-    <div class="hero-mq-item"><img src="images/clients/trans/calvin.png" alt="Calvin Klein"></div>
-  </div>
-</div>
-
         <div class="testi-slide">
           <span class="mark">&ldquo;</span>
           <p class="tq">Five years in, TASK PR still feel like an extension of our own team. They know our brand inside out and consistently deliver coverage that impacts our UK performance.</p>
