@@ -23,17 +23,17 @@ a{color:inherit;text-decoration:none}
 .eyebrow{font-family:'Jost',sans-serif;font-size:11.5px;letter-spacing:3.2px;text-transform:uppercase;color:#8a5632;font-weight:600}
 .serif{font-family:'Cormorant Garamond',serif}
 
-/* NAV — shares the exact hero background color (Aisle 8 reference) */
-nav{position:sticky;top:0;z-index:1000;background:var(--wash);border-bottom:1px solid rgba(28,26,24,0.08);display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:78px;transition:box-shadow .3s}
+/* NAV — separate solid header, not joined with the hero */
+nav{position:sticky;top:0;z-index:1000;background:rgba(255,255,255,0.96);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 56px;height:78px;transition:box-shadow .3s}
 nav.scrolled{box-shadow:0 6px 30px rgba(0,0,0,0.05)}
 .logo{display:flex;align-items:center}
 .logo img{height:26px;width:auto}
 .nav-links{display:flex;align-items:center;gap:34px}
-.nl{font-size:12px;letter-spacing:1.8px;text-transform:uppercase;color:var(--ink2);font-weight:400;position:relative;padding:4px 0;transition:color .25s}
+.nl{font-size:13px;letter-spacing:1.5px;text-transform:uppercase;color:var(--ink);font-weight:500;position:relative;padding:4px 0;transition:color .25s}
 .nl::after{content:'';position:absolute;left:0;bottom:0;width:0;height:1px;background:var(--accent-d);transition:width .3s}
 .nl:hover{color:var(--ink)}.nl:hover::after,.nl.active::after{width:100%}
-.nl.active{color:var(--accent-d)}
-.nav-cta{margin-left:6px;background:var(--ink);color:#fff;padding:11px 22px;font-size:11px;letter-spacing:2px;text-transform:uppercase;border-radius:2px;transition:all .25s}
+.nl.active{color:#8a5632;font-weight:600}
+.nav-cta{margin-left:6px;background:var(--ink);color:#fff;padding:11px 22px;font-size:11.5px;font-weight:500;letter-spacing:2px;text-transform:uppercase;border-radius:2px;transition:all .25s}
 .nav-cta:hover{background:var(--accent-d)}
 
 /* HERO — same color-wash as nav, text-forward, editorial (Aisle 8 reference) */
