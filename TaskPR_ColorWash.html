@@ -719,22 +719,22 @@ if(px && !reduce){
   };
   addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(update);ticking=true;}},{passive:true});
   update();
+<!-- dev-only cursor switcher — delete when a mode is chosen -->
+<div class="cur-switch" id="curSwitch">
+  <button data-m="ring">Ring</button>
+  <button data-m="dot">Dot + Ring</button>
+  <button data-m="minimal">Minimal</button>
+  <button data-m="magnetic">Magnetic</button>
+  <button data-m="cross">Crosshair</button>
+  <button data-m="blend">Blend</button>
+  <button data-m="arrow">Arrow</button>
+  <button data-m="hand">Hand</button>
+  <button data-m="native">Native</button>
+</div>
+
 }
 
 // seamless marquee
-document.querySelectorAll('.mq-row[data-clone]').forEach(row=>{row.innerHTML+=row.innerHTML;});
-
-// stats counter
-const stats=document.getElementById('stats');
-if(stats){
-  const so=new IntersectionObserver(es=>{
-    if(es[0].isIntersecting){
-      stats.querySelectorAll('.im-v').forEach(el=>{
-        const target=+el.dataset.target, suffix=el.dataset.suffix||'';
-        if(reduce){el.textContent=target+suffix;return;}
-        const dur=1600, t0=performance.now();
-        const tick=now=>{
-          const p=Math.min((now-t0)/dur,1);
 /* ============ CUSTOM CURSOR ============ */
 (function(){
   const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
@@ -809,6 +809,19 @@ if(stats){
   setMode(localStorage.getItem('taskpr-cursor')||'ring');
 })();
 
+document.querySelectorAll('.mq-row[data-clone]').forEach(row=>{row.innerHTML+=row.innerHTML;});
+
+// stats counter
+const stats=document.getElementById('stats');
+if(stats){
+  const so=new IntersectionObserver(es=>{
+    if(es[0].isIntersecting){
+      stats.querySelectorAll('.im-v').forEach(el=>{
+        const target=+el.dataset.target, suffix=el.dataset.suffix||'';
+        if(reduce){el.textContent=target+suffix;return;}
+        const dur=1600, t0=performance.now();
+        const tick=now=>{
+          const p=Math.min((now-t0)/dur,1);
           const eased=1-Math.pow(1-p,3);
           el.textContent=Math.round(eased*target)+suffix;
           if(p<1) requestAnimationFrame(tick);
@@ -832,6 +845,8 @@ if(stats){
     const b=document.createElement('button');
     b.className='testi-dot'+(idx===0?' active':'');
     b.setAttribute('aria-label','Go to testimonial '+(idx+1));
+const heroMqTrack=document.getElementById('heroMqTrack');
+if(heroMqTrack) heroMqTrack.innerHTML+=heroMqTrack.innerHTML;
     b.addEventListener('click',()=>go(idx));
     dotsWrap.appendChild(b);
   });
@@ -845,8 +860,6 @@ if(stats){
   const next=()=>go(i+1), prev=()=>go(i-1);
   document.getElementById('testiNext').addEventListener('click',next);
   document.getElementById('testiPrev').addEventListener('click',prev);
-const heroMqTrack=document.getElementById('heroMqTrack');
-if(heroMqTrack) heroMqTrack.innerHTML+=heroMqTrack.innerHTML;
   function start(){ if(reduce) return; timer=setInterval(next,6000); }
   function restart(){ clearInterval(timer); start(); }
   car.addEventListener('mouseenter',()=>clearInterval(timer));
