@@ -735,6 +735,80 @@ if(stats){
         const dur=1600, t0=performance.now();
         const tick=now=>{
           const p=Math.min((now-t0)/dur,1);
+/* ============ CUSTOM CURSOR ============ */
+(function(){
+  const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  const root=document.documentElement;
+  const sw=document.getElementById('curSwitch');
+  if(!fine||reduce){ if(sw) sw.style.display='none'; root.dataset.cursor='native'; return; }
+
+  const ring=document.createElement('div');
+  ring.className='cur cur-ring';
+  ring.innerHTML='<span class="cur-label"></span>';
+  const dot=document.createElement('div');
+  dot.className='cur cur-dot';
+  document.body.append(ring,dot);
+  const label=ring.querySelector('.cur-label');
+
+  let mx=innerWidth/2,my=innerHeight/2,rx=mx,ry=my;
+  addEventListener('mousemove',e=>{mx=e.clientX;my=e.clientY;},{passive:true});
+  addEventListener('mouseleave',()=>{ring.style.opacity=dot.style.opacity=0;});
+  addEventListener('mouseenter',()=>{ring.style.opacity=dot.style.opacity='';});
+
+  let magnet=null; // element the ring is currently wrapping (magnetic mode)
+
+  (function loop(){
+    let tx=mx,ty=my;
+    if(magnet){
+      // ease toward the element's centre and take its shape
+      const r=magnet.getBoundingClientRect();
+      tx=r.left+r.width/2; ty=r.top+r.height/2;
+      ring.style.width=(r.width+14)+'px';
+      ring.style.height=(r.height+14)+'px';
+    }else if(root.dataset.cursor==='magnetic'){
+      ring.style.width=ring.style.height='';
+    }
+    rx+=(tx-rx)*0.18; ry+=(ty-ry)*0.18;
+    ring.style.transform='translate('+rx.toFixed(2)+'px,'+ry.toFixed(2)+'px) translate(-50%,-50%)';
+    dot.style.transform='translate('+mx+'px,'+my+'px) translate(-50%,-50%)';
+    requestAnimationFrame(loop);
+  })();
+
+  // grow over interactive things; show a label over image cards
+  const HOT='a,button,.btn,.nl,.nav-cta,.testi-arrow,.testi-dot,input,textarea,select,[role="button"]';
+  const LABELLED=[['.svc','View'],['.ncard','Read'],['.ig','Open']];
+  addEventListener('mouseover',e=>{
+    const t=e.target;
+    let text=null;
+    for(const [sel,txt] of LABELLED){ if(t.closest(sel)){ text=txt; break; } }
+    if(text){ label.textContent=text; ring.classList.add('labelled','hot'); dot.classList.add('hot'); return; }
+    ring.classList.remove('labelled');
+    const hot=!!t.closest(HOT);
+    ring.classList.toggle('hot',hot);
+    dot.classList.toggle('hot',hot);
+
+    // magnetic mode: wrap buttons and nav items, not long text links
+    const snapTarget=t.closest('.btn,.nav-cta,.nl,.testi-arrow,button');
+    magnet=(root.dataset.cursor==='magnetic')?snapTarget:null;
+    ring.classList.toggle('snap',!!magnet);
+    if(!magnet && root.dataset.cursor==='magnetic'){ring.style.width=ring.style.height='';}
+  },{passive:true});
+
+  // mode switching (persists across reloads while you compare)
+  const setMode=m=>{
+    // modes drawn by our own DOM elements need the real cursor hidden;
+    // arrow/hand/native are drawn by the OS, so it must stay visible
+    const DRAWN=['ring','dot','minimal','magnetic','cross','blend'];
+    root.dataset.cursor=m;
+    root.classList.toggle('cur-on',DRAWN.includes(m));
+    magnet=null; ring.classList.remove('snap'); ring.style.width=ring.style.height='';
+    localStorage.setItem('taskpr-cursor',m);
+    sw.querySelectorAll('button').forEach(b=>b.classList.toggle('on',b.dataset.m===m));
+  };
+  sw.addEventListener('click',e=>{ const b=e.target.closest('button'); if(b) setMode(b.dataset.m); });
+  setMode(localStorage.getItem('taskpr-cursor')||'ring');
+})();
+
           const eased=1-Math.pow(1-p,3);
           el.textContent=Math.round(eased*target)+suffix;
           if(p<1) requestAnimationFrame(tick);
@@ -771,6 +845,8 @@ if(stats){
   const next=()=>go(i+1), prev=()=>go(i-1);
   document.getElementById('testiNext').addEventListener('click',next);
   document.getElementById('testiPrev').addEventListener('click',prev);
+const heroMqTrack=document.getElementById('heroMqTrack');
+if(heroMqTrack) heroMqTrack.innerHTML+=heroMqTrack.innerHTML;
   function start(){ if(reduce) return; timer=setInterval(next,6000); }
   function restart(){ clearInterval(timer); start(); }
   car.addEventListener('mouseenter',()=>clearInterval(timer));
@@ -788,5 +864,3 @@ if(stats){
 </script>
 </body>
 </html>
-const heroMqTrack=document.getElementById('heroMqTrack');
-if(heroMqTrack) heroMqTrack.innerHTML+=heroMqTrack.innerHTML;
