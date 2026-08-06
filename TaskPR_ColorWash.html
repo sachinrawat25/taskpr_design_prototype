@@ -69,15 +69,15 @@ nav.scrolled{box-shadow:0 6px 30px rgba(0,0,0,0.05)}
 .hero-mq-item:hover img{filter:none;opacity:1}
 
 /* SECTIONS */
-section{padding:104px 56px}
-.sec-head{text-align:center;max-width:720px;margin:0 auto 60px}
+section{padding:88px 56px}
+.sec-head{text-align:center;max-width:720px;margin:0 auto 46px}
 .sec-head .eyebrow{display:inline-block;margin-bottom:16px}
 .sec-head h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,4vw,48px);line-height:1.15;color:var(--ink);letter-spacing:.3px}
 .sec-head p{margin-top:16px;font-size:15px;color:var(--ink2)}
 
 /* INTRO */
-.intro{background:var(--bg2);text-align:center}
-.intro .lead{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:300;font-size:clamp(22px,2.8vw,32px);line-height:1.55;color:var(--ink);max-width:900px;margin:0 auto}
+.intro{background:#fff;text-align:center;padding-top:78px}
+.intro .lead{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(22px,2.8vw,32px);line-height:1.55;color:var(--ink);max-width:900px;margin:0 auto}
 .intro .lead b{font-style:normal;font-weight:500;color:var(--accent-d)}
 .intro-meta{display:flex;justify-content:center;gap:54px;margin-top:46px;flex-wrap:wrap}
 .im{ text-align:center}
@@ -144,7 +144,12 @@ section{padding:104px 56px}
 }
 
 /* CLIENTS GRID */
-.clients{background:var(--bg2)}
+/* ---- SECTION RHYTHM ----
+   Alternating tones so every section has a visible edge.
+   white -> cream -> white -> cream -> white -> cream -> white -> ink   */
+.services{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.clients{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
+.ig-sec{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .clients-more{text-align:center;margin-top:48px}
 
 /* CLIENT MARQUEE */
@@ -270,11 +275,6 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
 .stagger>*{opacity:0;transform:translateY(20px);transition:opacity .6s cubic-bezier(.2,.7,.2,1),transform .6s cubic-bezier(.2,.7,.2,1)}
 .stagger.in>*{opacity:1;transform:translateY(0)}
 
-/* RESPECT REDUCED MOTION */
-@media (prefers-reduced-motion: reduce){
-  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
-  .mq-row{animation:none!important}
-  .reveal,.stagger>*{opacity:1!important;transform:none!important}
 /* ============ CUSTOM CURSOR (pointer devices only) ============ */
 @media (hover:hover) and (pointer:fine){
   html.cur-on,html.cur-on *{cursor:none!important}
@@ -379,6 +379,11 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
   background:transparent;color:var(--ink2);transition:all .2s}
 .cur-switch button.on{background:var(--ink);color:#fff}
 
+/* RESPECT REDUCED MOTION */
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+  .mq-row{animation:none!important}
+  .reveal,.stagger>*{opacity:1!important;transform:none!important}
   .about-visual img{height:100%!important;transform:none!important}
 }
 
@@ -398,13 +403,13 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
   section{padding:72px 22px}
   .svc-grid,.news-grid,.ig-grid,.foot-grid{grid-template-columns:1fr 1fr}
   .svc-grid,.news-grid,.foot-grid{grid-template-columns:1fr}
+  .svc{aspect-ratio:4/3}
+  .svc-rest{left:20px;right:20px}
   .intro-meta{gap:32px}
   footer{padding:48px 22px 32px}
 }
 </style>
 </head>
-  .svc{aspect-ratio:4/3}
-  .svc-rest{left:20px;right:20px}
 <body>
 
 <!-- NAV — same background color as the hero (Aisle 8 reference) -->
@@ -436,14 +441,9 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
       <a class="btn btn-outline">View Our Clients</a>
     </div>
   </div>
+  <div class="scroll-cue">Scroll</div>
 </header>
 
-<!-- INTRO -->
-<section class="intro reveal">
-  <span class="eyebrow">Who We Are</span>
-  <div class="scroll-cue">Scroll</div>
-  <p class="lead" style="margin-top:22px">We are an independent <b>fashion, lifestyle &amp; interiors PR agency</b> securing consistent, meaningful coverage that positions brands as authoritative voices within their sectors.</p>
-  <div class="intro-meta stagger" id="stats">
 <!-- LOGO STRIP -->
 <div class="hero-mq">
   <div class="hero-mq-label">Trusted by <b>TASK PR</b> clients</div>
@@ -465,6 +465,11 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
   </div>
 </div>
 
+<!-- INTRO -->
+<section class="intro reveal">
+  <span class="eyebrow">Who We Are</span>
+  <p class="lead" style="margin-top:22px">We are an independent <b>fashion, lifestyle &amp; interiors PR agency</b> securing consistent, meaningful coverage that positions brands as authoritative voices within their sectors.</p>
+  <div class="intro-meta stagger" id="stats">
     <div class="im"><div class="im-v" data-target="15" data-suffix="+">0</div><div class="im-l">Years Experience</div></div>
     <div class="im"><div class="im-v" data-target="100" data-suffix="+">0</div><div class="im-l">Brands Represented</div></div>
     <div class="im"><div class="im-v" data-target="2" data-suffix="">0</div><div class="im-l">Markets · UK &amp; DE</div></div>
@@ -473,7 +478,7 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
 </section>
 
 <!-- SERVICES -->
-<section class="reveal">
+<section class="services reveal">
   <div class="sec-head">
     <span class="eyebrow">What We Do</span>
     <h2>Integrated communications,<br>built for modern brands</h2>
@@ -599,11 +604,11 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
 </section>
 
 <!-- INSTAGRAM / GALLERY -->
-<section class="reveal">
+<section class="ig-sec reveal">
   <div class="ig-head">
     <div>
       <span class="eyebrow">Follow Our World</span>
-      <h2 class="serif" style="font-size:clamp(28px,3.6vw,42px);color:var(--ink);font-weight:400;margin-top:8px">@taskpr</h2>
+      <h2 class="serif" style="font-size:clamp(28px,3.6vw,42px);color:var(--ink);font-weight:500;margin-top:8px">@taskpr</h2>
     </div>
     <a class="read">Follow on Instagram</a>
   </div>
@@ -672,12 +677,12 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
       </div>
     </article>
   </div>
+  <div class="news-more"><a class="btn btn-primary" style="color:#1c1a18" href="#">View All News</a></div>
 </section>
 
 <!-- CTA -->
 <section class="cta reveal">
   <div class="cta-inner">
-  <div class="news-more"><a class="btn btn-primary" style="color:#1c1a18" href="#">View All News</a></div>
     <span class="eyebrow">Let's Talk</span>
     <h2>Ready to elevate <em>your brand?</em></h2>
     <p>Tell us about your brand and let's explore what TASK PR can build for you across the UK and German markets.</p>
@@ -714,11 +719,6 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
   <div class="foot-bottom">© 2011 – 2026 Task PR Ltd. All rights reserved · Company Number 7518088 registered in England · Registered Office: 167–169 Great Portland Street, 5th Floor, London W1W 5PF</div>
 </footer>
 
-<script>
-const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-
-// nav shadow on scroll
-const nav=document.getElementById('nav');
 <!-- dev-only cursor switcher — delete when a mode is chosen -->
 <div class="cur-switch" id="curSwitch">
   <button data-m="ring">Ring</button>
@@ -732,9 +732,9 @@ const nav=document.getElementById('nav');
   <button data-m="native">Native</button>
 </div>
 
-addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20),{passive:true});
+<script>
+const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-// reveal + staggered children
 /* ============ CUSTOM CURSOR ============ */
 (function(){
   const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
@@ -809,6 +809,11 @@ addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20),{passi
   setMode(localStorage.getItem('taskpr-cursor')||'ring');
 })();
 
+// nav shadow on scroll
+const nav=document.getElementById('nav');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20),{passive:true});
+
+// reveal + staggered children
 const io=new IntersectionObserver(es=>es.forEach(e=>{
   if(e.isIntersecting){
     const el=e.target;
@@ -840,13 +845,13 @@ if(px && !reduce){
 
 // seamless marquee
 document.querySelectorAll('.mq-row[data-clone]').forEach(row=>{row.innerHTML+=row.innerHTML;});
+const heroMqTrack=document.getElementById('heroMqTrack');
+if(heroMqTrack) heroMqTrack.innerHTML+=heroMqTrack.innerHTML;
 
 // stats counter
 const stats=document.getElementById('stats');
 if(stats){
   const so=new IntersectionObserver(es=>{
-const heroMqTrack=document.getElementById('heroMqTrack');
-if(heroMqTrack) heroMqTrack.innerHTML+=heroMqTrack.innerHTML;
     if(es[0].isIntersecting){
       stats.querySelectorAll('.im-v').forEach(el=>{
         const target=+el.dataset.target, suffix=el.dataset.suffix||'';
