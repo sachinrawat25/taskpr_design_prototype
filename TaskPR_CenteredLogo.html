@@ -76,14 +76,14 @@ nav.scrolled{box-shadow:0 6px 30px rgba(0,0,0,0.05)}
 .scroll-cue::after{content:'';width:1px;height:26px;background:rgba(255,255,255,0.5)}
 
 /* SECTIONS */
-section{padding:104px 56px}
-.sec-head{text-align:center;max-width:720px;margin:0 auto 60px}
+section{padding:88px 56px}
+.sec-head{text-align:center;max-width:720px;margin:0 auto 46px}
 .sec-head .eyebrow{display:inline-block;margin-bottom:16px}
 .sec-head h2{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:clamp(30px,4vw,48px);line-height:1.15;color:var(--ink);letter-spacing:.3px}
 .sec-head p{margin-top:16px;font-size:15px;color:var(--ink2)}
 
 /* INTRO */
-.intro{background:var(--bg2);text-align:center}
+.intro{background:var(--bg2);text-align:center;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .intro .lead{font-family:'Cormorant Garamond',serif;font-style:italic;font-weight:500;font-size:clamp(22px,2.8vw,32px);line-height:1.55;color:var(--ink);max-width:900px;margin:0 auto}
 .intro .lead b{font-style:normal;font-weight:500;color:var(--accent-d)}
 .intro-meta{display:flex;justify-content:center;gap:54px;margin-top:46px;flex-wrap:wrap}
@@ -157,7 +157,7 @@ section{padding:104px 56px}
 }
 
 /* CLIENTS GRID */
-.clients{background:var(--bg2)}
+.clients{background:var(--bg)}
 .clients-more{text-align:center;margin-top:48px}
 
 /* CLIENT MARQUEE */
@@ -175,7 +175,7 @@ section{padding:104px 56px}
 .mq-item:hover .wm{color:var(--ink)}
 
 /* TESTIMONIALS CAROUSEL */
-.testi-sec{background:#fff}
+.testi-sec{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .testi-carousel{max-width:860px;margin:0 auto;position:relative}
 .testi-viewport{overflow:hidden}
 .testi-track{display:flex;transition:transform .7s cubic-bezier(.2,.7,.2,1);will-change:transform}
@@ -202,9 +202,9 @@ section{padding:104px 56px}
 .ig:hover::after{background:rgba(28,26,24,0.12)}
 
 /* NEWS */
-.news{background:var(--bg2)}
+.news{background:var(--bg2);border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-.ncard{background:#fff;border:1px solid var(--line);border-radius:4px;overflow:hidden;transition:transform .3s,box-shadow .3s}
+.ncard{background:#fff;border:1px solid var(--line2);border-radius:4px;overflow:hidden;transition:transform .3s,box-shadow .3s}
 .ncard:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(28,26,24,0.1)}
 .ncard-img{aspect-ratio:16/10;overflow:hidden}
 .ncard-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
@@ -241,7 +241,7 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
 .foot-bottom{max-width:1180px;margin:48px auto 0;padding-top:24px;border-top:1px solid var(--line);font-size:12px;color:var(--muted);text-align:center;letter-spacing:.4px}
 
 /* ABOUT / FOUNDERS */
-.about{background:#fff;overflow:hidden}
+.about{background:var(--bg2);overflow:hidden;border-top:1px solid var(--line);border-bottom:1px solid var(--line)}
 .about-grid{display:grid;grid-template-columns:0.9fr 1.1fr;gap:64px;align-items:center;max-width:1180px;margin:0 auto}
 .about-visual{position:relative;border-radius:4px;overflow:hidden;aspect-ratio:3/2;box-shadow:0 30px 70px rgba(28,26,24,0.12)}
 .about-visual img{width:100%;height:120%;object-fit:cover;will-change:transform}
@@ -367,7 +367,7 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
 </section>
 
 <!-- SERVICES -->
-<section class="reveal">
+<section class="services reveal">
   <div class="sec-head">
     <span class="eyebrow">What We Do</span>
     <h2>Integrated communications,<br>built for modern brands</h2>
@@ -493,7 +493,7 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
 </section>
 
 <!-- INSTAGRAM / GALLERY -->
-<section class="reveal">
+<section class="ig-sec reveal">
   <div class="ig-head">
     <div>
       <span class="eyebrow">Follow Our World</span>
