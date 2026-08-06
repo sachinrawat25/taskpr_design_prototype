@@ -627,33 +627,48 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
   </div>
   <div class="news-grid stagger">
     <article class="ncard">
-      <div class="ncard-img"><img src="images/social.jpg" alt=""></div>
+      <div class="ncard-img">
+        <span class="ncard-tag">News</span>
+        <img src="images/social.jpg" width="640" height="400" loading="lazy" decoding="async"
+             alt="sofa.com display at the Ideal Home Awards in London">
+      </div>
       <div class="ncard-body">
-        <div class="ncard-tag">News</div>
         <h3>Sofa.com Wins at the Ideal Home Awards</h3>
         <p>TASK PR was delighted to support sofa.com at the recent Ideal Home Awards in London, where the brand received two major accolades.</p>
-        <a class="read">Read More</a>
-        <div class="ncard-date">June 2, 2026</div>
+        <div class="ncard-foot">
+          <a class="read ncard-link" href="#">Read More</a>
+          <time class="ncard-date" datetime="2026-06-02">June 2, 2026</time>
+        </div>
       </div>
     </article>
     <article class="ncard">
-      <div class="ncard-img"><img src="images/people.jpg" alt=""></div>
+      <div class="ncard-img">
+        <span class="ncard-tag">Events</span>
+        <img src="images/people.jpg" width="640" height="400" loading="lazy" decoding="async"
+             alt="Guests at the Really Wild Clothing tweed evening during London Craft Week">
+      </div>
       <div class="ncard-body">
-        <div class="ncard-tag">Events</div>
         <h3>Really Wild London Craft Week: Tweed on Screen</h3>
         <p>During London Craft Week, TASK PR supported Really Wild Clothing in hosting an evening celebrating the heritage and modern evolution of tweed.</p>
-        <a class="read">Read More</a>
-        <div class="ncard-date">May 21, 2026</div>
+        <div class="ncard-foot">
+          <a class="read ncard-link" href="#">Read More</a>
+          <time class="ncard-date" datetime="2026-05-21">May 21, 2026</time>
+        </div>
       </div>
     </article>
     <article class="ncard">
-      <div class="ncard-img"><img src="images/marccain.jpg" alt=""></div>
+      <div class="ncard-img">
+        <span class="ncard-tag">News</span>
+        <img src="images/marccain.jpg" width="640" height="400" loading="lazy" decoding="async"
+             alt="Marc Cain retail interior used to illustrate AI-driven brand discovery">
+      </div>
       <div class="ncard-body">
-        <div class="ncard-tag">News</div>
         <h3>How AI Search Is Reshaping Brand Visibility</h3>
         <p>Why earned media and PR matter more than ever in an era of AI-driven discovery — and how brands can stay ahead of the shift.</p>
-        <a class="read">Read More</a>
-        <div class="ncard-date">May 13, 2026</div>
+        <div class="ncard-foot">
+          <a class="read ncard-link" href="#">Read More</a>
+          <time class="ncard-date" datetime="2026-05-13">May 13, 2026</time>
+        </div>
       </div>
     </article>
   </div>
@@ -662,6 +677,7 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
 <!-- CTA -->
 <section class="cta reveal">
   <div class="cta-inner">
+  <div class="news-more"><a class="btn btn-primary" style="color:#1c1a18" href="#">View All News</a></div>
     <span class="eyebrow">Let's Talk</span>
     <h2>Ready to elevate <em>your brand?</em></h2>
     <p>Tell us about your brand and let's explore what TASK PR can build for you across the UK and German markets.</p>
@@ -703,22 +719,6 @@ const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // nav shadow on scroll
 const nav=document.getElementById('nav');
-addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20),{passive:true});
-
-// reveal + staggered children
-const io=new IntersectionObserver(es=>es.forEach(e=>{
-  if(e.isIntersecting){
-    const el=e.target;
-    if(el.classList.contains('stagger')){
-      [...el.children].forEach((c,i)=>{c.style.transitionDelay=(i*55)+'ms';});
-    }
-    el.classList.add('in');
-    io.unobserve(el);
-  }
-}),{threshold:0.12});
-document.querySelectorAll('.reveal, .stagger').forEach(el=>io.observe(el));
-
-// subtle parallax on the About image (transform only, reduced-motion safe)
 <!-- dev-only cursor switcher — delete when a mode is chosen -->
 <div class="cur-switch" id="curSwitch">
   <button data-m="ring">Ring</button>
@@ -732,9 +732,9 @@ document.querySelectorAll('.reveal, .stagger').forEach(el=>io.observe(el));
   <button data-m="native">Native</button>
 </div>
 
-const px=document.querySelector('[data-parallax] img');
-if(px && !reduce){
-  const frame=px.closest('[data-parallax]');
+addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>20),{passive:true});
+
+// reveal + staggered children
 /* ============ CUSTOM CURSOR ============ */
 (function(){
   const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
@@ -809,6 +809,22 @@ if(px && !reduce){
   setMode(localStorage.getItem('taskpr-cursor')||'ring');
 })();
 
+const io=new IntersectionObserver(es=>es.forEach(e=>{
+  if(e.isIntersecting){
+    const el=e.target;
+    if(el.classList.contains('stagger')){
+      [...el.children].forEach((c,i)=>{c.style.transitionDelay=(i*55)+'ms';});
+    }
+    el.classList.add('in');
+    io.unobserve(el);
+  }
+}),{threshold:0.12});
+document.querySelectorAll('.reveal, .stagger').forEach(el=>io.observe(el));
+
+// subtle parallax on the About image (transform only, reduced-motion safe)
+const px=document.querySelector('[data-parallax] img');
+if(px && !reduce){
+  const frame=px.closest('[data-parallax]');
   let ticking=false;
   const update=()=>{
     const r=frame.getBoundingClientRect();
@@ -829,6 +845,8 @@ document.querySelectorAll('.mq-row[data-clone]').forEach(row=>{row.innerHTML+=ro
 const stats=document.getElementById('stats');
 if(stats){
   const so=new IntersectionObserver(es=>{
+const heroMqTrack=document.getElementById('heroMqTrack');
+if(heroMqTrack) heroMqTrack.innerHTML+=heroMqTrack.innerHTML;
     if(es[0].isIntersecting){
       stats.querySelectorAll('.im-v').forEach(el=>{
         const target=+el.dataset.target, suffix=el.dataset.suffix||'';
@@ -845,8 +863,6 @@ if(stats){
       so.disconnect();
     }
   },{threshold:0.4});
-const heroMqTrack=document.getElementById('heroMqTrack');
-if(heroMqTrack) heroMqTrack.innerHTML+=heroMqTrack.innerHTML;
   so.observe(stats);
 }
 
