@@ -189,21 +189,35 @@ section{padding:104px 56px}
 .ig:hover::after{background:rgba(28,26,24,0.12)}
 
 /* NEWS */
-.news{background:var(--bg2)}
+.news{background:var(--bg)}
 .news-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:28px}
-.ncard{background:#fff;border:1px solid var(--line);border-radius:4px;overflow:hidden;transition:transform .3s,box-shadow .3s}
-.ncard:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(28,26,24,0.1)}
-.ncard-img{aspect-ratio:16/10;overflow:hidden}
+.ncard{background:#fff;border:1px solid var(--line2);border-radius:4px;overflow:hidden;position:relative;
+  box-shadow:0 2px 10px -6px rgba(28,26,24,.12);
+  display:flex;flex-direction:column;transition:transform .3s,box-shadow .3s,border-color .3s}
+.ncard:hover{transform:translateY(-6px);box-shadow:0 22px 50px rgba(28,26,24,0.1);border-color:var(--line2)}
+.ncard-img{aspect-ratio:16/10;overflow:hidden;position:relative;background:var(--wash)}
 .ncard-img img{width:100%;height:100%;object-fit:cover;transition:transform .7s}
 .ncard:hover .ncard-img img{transform:scale(1.06)}
-.ncard-body{padding:26px 26px 30px}
-.ncard-tag{font-size:10px;letter-spacing:2.5px;text-transform:uppercase;color:var(--accent-d);margin-bottom:12px}
-.ncard h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:22px;line-height:1.3;color:var(--ink);margin-bottom:12px}
-.ncard p{font-size:13.5px;color:var(--ink2);line-height:1.7;margin-bottom:18px}
-.read{font-size:11px;letter-spacing:2px;text-transform:uppercase;color:var(--accent-d);position:relative}
-.read::after{content:' →';transition:padding .25s}
-.ncard:hover .read::after{padding-left:6px}
-.ncard-date{font-size:11px;color:var(--muted);margin-top:16px;letter-spacing:1px}
+/* tag sits on the image as a badge, matching the live site */
+.ncard-tag{position:absolute;top:14px;right:14px;z-index:2;background:var(--accent);color:#4a2f19;
+  font-size:9.5px;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:6px 12px;border-radius:100px}
+.ncard-body{padding:24px 26px 22px;display:flex;flex-direction:column;flex:1}
+.ncard h3{font-family:'Cormorant Garamond',serif;font-weight:500;font-size:22px;line-height:1.3;color:var(--ink);
+  margin-bottom:12px;transition:color .25s}
+.ncard:hover h3{color:#8a5632}
+.ncard p{font-size:13.5px;color:var(--ink2);line-height:1.7;margin-bottom:20px;
+  display:-webkit-box;-webkit-line-clamp:3;-webkit-box-orient:vertical;overflow:hidden}
+/* footer pinned to the bottom so it lines up across all three cards */
+.ncard-foot{margin-top:auto;padding-top:16px;border-top:1px solid var(--line);
+  display:flex;align-items:center;justify-content:space-between;gap:12px}
+.read{font-size:11px;font-weight:600;letter-spacing:2px;text-transform:uppercase;color:#8a5632}
+.read::after{content:' →';display:inline-block;transition:transform .25s}
+.ncard:hover .read::after{transform:translateX(5px)}
+.ncard-date{font-size:11px;color:var(--muted);letter-spacing:1px;white-space:nowrap}
+/* whole card is the click target, without nesting links */
+.ncard-link::after{content:'';position:absolute;inset:0;z-index:3}
+.ncard:focus-within{outline:2px solid var(--accent-d);outline-offset:3px}
+.news-more{text-align:center;margin-top:48px}
 
 /* CTA */
 .cta{background:var(--ink);color:#fff;text-align:center;position:relative;overflow:hidden}
@@ -261,18 +275,6 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
   *,*::before,*::after{animation-duration:.001ms!important;animation-iteration-count:1!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
   .mq-row{animation:none!important}
   .reveal,.stagger>*{opacity:1!important;transform:none!important}
-  .about-visual img{height:100%!important;transform:none!important}
-}
-
-@media(max-width:1200px){
-  .svc-grid{grid-template-columns:repeat(3,1fr)}
-}
-@media(max-width:980px){
-  .svc-grid,.news-grid{grid-template-columns:1fr 1fr}
-  .ig-grid{grid-template-columns:repeat(3,1fr)}
-  .foot-grid{grid-template-columns:1fr 1fr}
-  .about-grid{grid-template-columns:1fr;gap:40px;max-width:560px}
-  .about-visual{aspect-ratio:16/10}
 /* ============ CUSTOM CURSOR (pointer devices only) ============ */
 @media (hover:hover) and (pointer:fine){
   html.cur-on,html.cur-on *{cursor:none!important}
@@ -377,6 +379,18 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
   background:transparent;color:var(--ink2);transition:all .2s}
 .cur-switch button.on{background:var(--ink);color:#fff}
 
+  .about-visual img{height:100%!important;transform:none!important}
+}
+
+@media(max-width:1200px){
+  .svc-grid{grid-template-columns:repeat(3,1fr)}
+}
+@media(max-width:980px){
+  .svc-grid,.news-grid{grid-template-columns:1fr 1fr}
+  .ig-grid{grid-template-columns:repeat(3,1fr)}
+  .foot-grid{grid-template-columns:1fr 1fr}
+  .about-grid{grid-template-columns:1fr;gap:40px;max-width:560px}
+  .about-visual{aspect-ratio:16/10}
 }
 @media(max-width:680px){
   nav{padding:0 22px;height:66px}
@@ -389,6 +403,8 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
 }
 </style>
 </head>
+  .svc{aspect-ratio:4/3}
+  .svc-rest{left:20px;right:20px}
 <body>
 
 <!-- NAV — same background color as the hero (Aisle 8 reference) -->
@@ -403,8 +419,6 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
     <a class="nl">Contact</a>
     <a class="nav-cta">Work With Us</a>
   </div>
-  .svc{aspect-ratio:4/3}
-  .svc-rest{left:20px;right:20px}
 </nav>
 
 <!-- HERO — video, transparent header floats over it until scroll -->
@@ -427,23 +441,9 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
 <!-- INTRO -->
 <section class="intro reveal">
   <span class="eyebrow">Who We Are</span>
+  <div class="scroll-cue">Scroll</div>
   <p class="lead" style="margin-top:22px">We are an independent <b>fashion, lifestyle &amp; interiors PR agency</b> securing consistent, meaningful coverage that positions brands as authoritative voices within their sectors.</p>
   <div class="intro-meta stagger" id="stats">
-    <div class="im"><div class="im-v" data-target="15" data-suffix="+">0</div><div class="im-l">Years Experience</div></div>
-    <div class="im"><div class="im-v" data-target="100" data-suffix="+">0</div><div class="im-l">Brands Represented</div></div>
-    <div class="im"><div class="im-v" data-target="2" data-suffix="">0</div><div class="im-l">Markets · UK &amp; DE</div></div>
-    <div class="im"><div class="im-v" data-target="12" data-suffix="">0</div><div class="im-l">Integrated Services</div></div>
-  </div>
-</section>
-
-<!-- SERVICES -->
-<section class="reveal">
-  <div class="sec-head">
-    <span class="eyebrow">What We Do</span>
-    <h2>Integrated communications,<br>built for modern brands</h2>
-  <div class="scroll-cue">Scroll</div>
-    <p>Six disciplines working as one strategy — not separate teams.</p>
-  </div>
 <!-- LOGO STRIP -->
 <div class="hero-mq">
   <div class="hero-mq-label">Trusted by <b>TASK PR</b> clients</div>
@@ -465,6 +465,20 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
   </div>
 </div>
 
+    <div class="im"><div class="im-v" data-target="15" data-suffix="+">0</div><div class="im-l">Years Experience</div></div>
+    <div class="im"><div class="im-v" data-target="100" data-suffix="+">0</div><div class="im-l">Brands Represented</div></div>
+    <div class="im"><div class="im-v" data-target="2" data-suffix="">0</div><div class="im-l">Markets · UK &amp; DE</div></div>
+    <div class="im"><div class="im-v" data-target="12" data-suffix="">0</div><div class="im-l">Integrated Services</div></div>
+  </div>
+</section>
+
+<!-- SERVICES -->
+<section class="reveal">
+  <div class="sec-head">
+    <span class="eyebrow">What We Do</span>
+    <h2>Integrated communications,<br>built for modern brands</h2>
+    <p>Six disciplines working as one strategy — not separate teams.</p>
+  </div>
   <div class="svc-grid stagger">
     <article class="svc" tabindex="0"><img class="svc-bg" src="images/pr-1.jpg" alt="" loading="lazy"><span class="svc-veil"></span><div class="svc-rest"><div class="svc-rest-row"><span class="svc-n">01</span><h3>Public Relations</h3><span class="svc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span></div><span class="svc-desc">Strategic editorial coverage across the most prestigious UK and German print and digital titles.</span></div><div class="svc-panel"><span class="pn" aria-hidden="true">01</span><span class="pt" aria-hidden="true">Public Relations</span><span class="prule"></span><p>Strategic editorial coverage across the most prestigious UK and German print and digital titles.</p><span class="plink">Explore</span></div></article>
     <article class="svc" tabindex="0"><img class="svc-bg" src="images/influencer-marketing-1.jpg" alt="" loading="lazy"><span class="svc-veil"></span><div class="svc-rest"><div class="svc-rest-row"><span class="svc-n">02</span><h3>Influencer Marketing</h3><span class="svc-arrow" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 17L17 7M17 7H8M17 7v9"/></svg></span></div><span class="svc-desc">Creative concepts, organic outreach and contract negotiation with the creators who drive culture.</span></div><div class="svc-panel"><span class="pn" aria-hidden="true">02</span><span class="pt" aria-hidden="true">Influencer Marketing</span><span class="prule"></span><p>Creative concepts, organic outreach and contract negotiation with the creators who drive culture.</p><span class="plink">Explore</span></div></article>
@@ -705,20 +719,6 @@ const io=new IntersectionObserver(es=>es.forEach(e=>{
 document.querySelectorAll('.reveal, .stagger').forEach(el=>io.observe(el));
 
 // subtle parallax on the About image (transform only, reduced-motion safe)
-const px=document.querySelector('[data-parallax] img');
-if(px && !reduce){
-  const frame=px.closest('[data-parallax]');
-  let ticking=false;
-  const update=()=>{
-    const r=frame.getBoundingClientRect();
-    if(r.bottom>0 && r.top<innerHeight){
-      const prog=(r.top+r.height/2-innerHeight/2)/innerHeight;
-      px.style.transform='translateY('+(prog*-28).toFixed(1)+'px)';
-    }
-    ticking=false;
-  };
-  addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(update);ticking=true;}},{passive:true});
-  update();
 <!-- dev-only cursor switcher — delete when a mode is chosen -->
 <div class="cur-switch" id="curSwitch">
   <button data-m="ring">Ring</button>
@@ -732,9 +732,9 @@ if(px && !reduce){
   <button data-m="native">Native</button>
 </div>
 
-}
-
-// seamless marquee
+const px=document.querySelector('[data-parallax] img');
+if(px && !reduce){
+  const frame=px.closest('[data-parallax]');
 /* ============ CUSTOM CURSOR ============ */
 (function(){
   const fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
@@ -809,6 +809,20 @@ if(px && !reduce){
   setMode(localStorage.getItem('taskpr-cursor')||'ring');
 })();
 
+  let ticking=false;
+  const update=()=>{
+    const r=frame.getBoundingClientRect();
+    if(r.bottom>0 && r.top<innerHeight){
+      const prog=(r.top+r.height/2-innerHeight/2)/innerHeight;
+      px.style.transform='translateY('+(prog*-28).toFixed(1)+'px)';
+    }
+    ticking=false;
+  };
+  addEventListener('scroll',()=>{if(!ticking){requestAnimationFrame(update);ticking=true;}},{passive:true});
+  update();
+}
+
+// seamless marquee
 document.querySelectorAll('.mq-row[data-clone]').forEach(row=>{row.innerHTML+=row.innerHTML;});
 
 // stats counter
@@ -831,6 +845,8 @@ if(stats){
       so.disconnect();
     }
   },{threshold:0.4});
+const heroMqTrack=document.getElementById('heroMqTrack');
+if(heroMqTrack) heroMqTrack.innerHTML+=heroMqTrack.innerHTML;
   so.observe(stats);
 }
 
@@ -845,8 +861,6 @@ if(stats){
     const b=document.createElement('button');
     b.className='testi-dot'+(idx===0?' active':'');
     b.setAttribute('aria-label','Go to testimonial '+(idx+1));
-const heroMqTrack=document.getElementById('heroMqTrack');
-if(heroMqTrack) heroMqTrack.innerHTML+=heroMqTrack.innerHTML;
     b.addEventListener('click',()=>go(idx));
     dotsWrap.appendChild(b);
   });
