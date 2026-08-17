@@ -75,6 +75,17 @@ nav.scrolled{box-shadow:0 6px 30px rgba(0,0,0,0.05)}
 @keyframes bob{0%,100%{transform:translate(-50%,0)}50%{transform:translate(-50%,7px)}}
 .scroll-cue::after{content:'';width:1px;height:26px;background:rgba(255,255,255,0.5)}
 
+/* HERO LOGO STRIP — thin marquee right under the hero */
+.hero-mq{overflow:hidden;border-top:1px solid var(--line);background:var(--bg2);padding:32px 0 30px}
+.hero-mq-label{text-align:center;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--ink2);font-weight:500;margin-bottom:24px}
+.hero-mq-label b{color:var(--accent-d);font-weight:700}
+.hero-mq-track{display:flex;width:max-content;align-items:center;animation:heroMqScroll 30s linear infinite}
+.hero-mq:hover .hero-mq-track{animation-play-state:paused}
+@keyframes heroMqScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+.hero-mq-item{display:flex;align-items:center;justify-content:center;background:transparent;padding:0 34px}
+.hero-mq-item img{height:34px;width:auto;max-width:140px;object-fit:contain;filter:grayscale(1);opacity:.6;transition:all .3s}
+.hero-mq-item:hover img{filter:none;opacity:1}
+
 /* SECTIONS */
 section{padding:88px 56px}
 .sec-head{text-align:center;max-width:720px;margin:0 auto 46px}
@@ -354,6 +365,27 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
   <div class="scroll-cue">Scroll</div>
 </header>
 
+<!-- LOGO STRIP -->
+<div class="hero-mq">
+  <div class="hero-mq-label">Trusted by <b>TASK PR</b> clients</div>
+  <div class="hero-mq-track" id="heroMqTrack">
+    <div class="hero-mq-item"><img src="images/clients/trans/falke-dark.png" alt="FALKE"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/marccain-dark.png" alt="Marc Cain"></div>
+    <div class="hero-mq-item"><img src="images/clients/sofa-dark.png" alt="sofa.com"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/seasalt-dark.png" alt="Seasalt Cornwall"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/mackenzie-dark.png" alt="MacKenzie-Childs"></div>
+    <div class="hero-mq-item"><img src="images/clients/reallywild-dark.png" alt="Really Wild"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/dkny-2.png" alt="DKNY"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/olivia-b.png" alt="Olivia Burton"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/tateossian-300.png" alt="Tateossian"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/reebok-300x.png" alt="Reebok"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/jaeger-300.png" alt="Jaeger"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/barneys.png" alt="Barneys Originals"></div>
+    <div class="hero-mq-item"><img src="images/clients/Sealskinz-logo-v2-02.png" alt="Sealskinz"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/calvin.png" alt="Calvin Klein"></div>
+  </div>
+</div>
+
 <!-- INTRO -->
 <section class="intro reveal">
   <span class="eyebrow">Who We Are</span>
@@ -593,6 +625,8 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
 </footer>
 
 <script>
+const heroMqTrack=document.getElementById('heroMqTrack');
+if(heroMqTrack) heroMqTrack.innerHTML+=heroMqTrack.innerHTML;
 const reduce=window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
 // nav shadow on scroll
