@@ -62,7 +62,10 @@ nav.scrolled{box-shadow:0 6px 30px rgba(0,0,0,0.05)}
 .hero-mq-label{text-align:center;font-size:14px;letter-spacing:3px;text-transform:uppercase;color:var(--ink2);font-weight:500;margin-bottom:24px}
 .hero-mq-label b{color:var(--accent-d);font-weight:700}
 .hero-mq-track{display:flex;width:max-content;align-items:center;animation:heroMqScroll 30s linear infinite}
-.hero-mq-track:hover{animation-play-state:paused}
+/* second row runs the other way, like the Our Work marquee */
+.hero-mq-track.rev{animation-direction:reverse;animation-duration:36s}
+.hero-mq-track+.hero-mq-track{margin-top:6px}
+.hero-mq:hover .hero-mq-track{animation-play-state:paused}
 @keyframes heroMqScroll{from{transform:translateX(0)}to{transform:translateX(-50%)}}
 .hero-mq-item{display:flex;align-items:center;justify-content:center;background:transparent;padding:0 34px}
 .hero-mq-item img{height:34px;width:auto;max-width:140px;object-fit:contain;filter:grayscale(1);opacity:.6;transition:all .3s}
@@ -463,6 +466,22 @@ footer{background:#fff;border-top:1px solid var(--line);padding:64px 56px 40px}
     <div class="hero-mq-item"><img src="images/clients/Sealskinz-logo-v2-02.png" alt="Sealskinz"></div>
     <div class="hero-mq-item"><img src="images/clients/trans/calvin.png" alt="Calvin Klein"></div>
   </div>
+  <div class="hero-mq-track rev" id="heroMqTrack2">
+    <div class="hero-mq-item"><img src="images/clients/trans/calvin.png" alt="Calvin Klein"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/barneys.png" alt="Barneys Originals"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/jaeger-300.png" alt="Jaeger"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/reebok-300x.png" alt="Reebok"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/tateossian-300.png" alt="Tateossian"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/olivia-b.png" alt="Olivia Burton"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/dkny-2.png" alt="DKNY"></div>
+    <div class="hero-mq-item"><img src="images/clients/reallywild-dark.png" alt="Really Wild"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/mackenzie-dark.png" alt="MacKenzie-Childs"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/seasalt-dark.png" alt="Seasalt Cornwall"></div>
+    <div class="hero-mq-item"><img src="images/clients/sofa-dark.png" alt="sofa.com"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/marccain-dark.png" alt="Marc Cain"></div>
+    <div class="hero-mq-item"><img src="images/clients/trans/falke-dark.png" alt="FALKE"></div>
+    <div class="hero-mq-item"><img src="images/clients/Sealskinz-logo-v2-02.png" alt="Sealskinz"></div>
+  </div>
 </div>
 
 <!-- INTRO -->
@@ -845,8 +864,11 @@ if(px && !reduce){
 
 // seamless marquee
 document.querySelectorAll('.mq-row[data-clone]').forEach(row=>{row.innerHTML+=row.innerHTML;});
-const heroMqTrack=document.getElementById('heroMqTrack');
-if(heroMqTrack) heroMqTrack.innerHTML+=heroMqTrack.innerHTML;
+// duplicate each strip's contents so the -50% loop is seamless
+['heroMqTrack','heroMqTrack2'].forEach(id=>{
+  const t=document.getElementById(id);
+  if(t) t.innerHTML+=t.innerHTML;
+});
 
 // stats counter
 const stats=document.getElementById('stats');
