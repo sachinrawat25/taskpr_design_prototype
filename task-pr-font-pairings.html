@@ -203,7 +203,10 @@
   .d2{font-size:clamp(23px,2.9vw,36px);line-height:1.16;text-wrap:balance}
   .d3{font-size:clamp(16px,1.6vw,20px);line-height:1.28}
   .dq{font-size:clamp(19px,2.4vw,30px);line-height:1.5;text-wrap:balance}
-  .d1 em,.d2 em,.dq em{font-style:italic;font-weight:inherit}
+  /* On the live site the gold appears inside headings, as the emphasised
+     phrase (hero h1 em, cta h2 em). Same job here — the dark sections
+     override this with the light tone further down. */
+  .d1 em,.d2 em,.dq em{font-style:italic;font-weight:inherit;color:var(--accent-text)}
 
   .body{
     font-family:var(--f-body);
@@ -281,6 +284,7 @@
   /* ---- client strip ---- */
   .pclients{background:var(--paper);border-bottom:1px solid var(--rule);padding:34px 46px 30px;text-align:center}
   .pclients .label{margin-bottom:22px}
+  .pclients .label b{color:var(--accent-text);font-weight:700}
   .pclients .row{display:flex;align-items:center;justify-content:center;gap:42px;flex-wrap:wrap}
   .pclients img{height:31px;width:auto;max-width:128px;object-fit:contain;opacity:.55;filter:grayscale(1)}
 
@@ -382,7 +386,14 @@
     margin-top:14px;opacity:.8}
 
   /* ---- closing CTA on the deep tone ---- */
-  .pcta{background:var(--deep);color:var(--on-deep);text-align:center}
+  /* the live CTA carries a soft accent glow behind it — same idea, palette-driven */
+  .pcta{background:var(--deep);color:var(--on-deep);text-align:center;
+    position:relative;overflow:hidden}
+  .pcta::before{
+    content:"";position:absolute;inset:0;pointer-events:none;opacity:.17;
+    background:radial-gradient(ellipse 60% 80% at 50% 30%,var(--accent-lite),transparent 70%);
+  }
+  .pcta>*{position:relative;z-index:1}
   .pcta .eyebrow{color:var(--accent-lite);display:inline-block;margin-bottom:15px}
   .pcta .d2{color:#fff;margin-bottom:16px}
   .pcta .d2 em{color:var(--accent-lite)}
@@ -399,6 +410,7 @@
     text-transform:uppercase;color:var(--ink)}
   .foot-col .small{margin-bottom:9px}
   .foot-col .small b{color:var(--ink);font-weight:500}
+  .foot-col .flink{color:var(--accent-text)}
   .foot-social{display:flex;gap:9px;margin-top:4px}
   .foot-social span{width:31px;height:31px;border:1px solid var(--rule);border-radius:50%;
     display:flex;align-items:center;justify-content:center;font-family:var(--f-body);
@@ -447,7 +459,7 @@
     font-variation-settings:var(--display-var,normal);
     text-transform:var(--display-case,none);
   }
-  .cmp .line em{font-style:italic}
+  .cmp .line em{font-style:italic;color:var(--accent-text)}
   .cmp .txt{
     display:block;
     font-family:var(--f-body);font-size:14px;line-height:1.6;
@@ -478,7 +490,7 @@
     font-variation-settings:var(--display-var,normal);
     text-transform:var(--display-case,none);
   }
-  .crow .cline em{font-style:italic}
+  .crow .cline em{font-style:italic;color:var(--accent-text)}
   .crow .cbody{display:block;font-family:var(--f-body);font-size:13.5px;line-height:1.6;
     color:var(--ink-soft);margin-top:9px;max-width:52ch}
   .ramp{display:flex;height:52px;box-shadow:inset 0 0 0 1px rgba(0,0,0,.1)}
@@ -647,7 +659,7 @@
             <h1 class="d1" id="heroline"></h1>
             <p class="body">For over 15 years we have connected fashion, accessories, beauty and interiors brands with the editors, journalists and influencers who shape culture — across London, Munich &amp; Berlin.</p>
             <div class="btns">
-              <span class="btn btn-accentLine">Work with us</span>
+              <span class="btn btn-onDark">Work with us</span>
               <span class="btn btn-ghost">View our clients</span>
             </div>
           </div>
@@ -655,7 +667,7 @@
 
         <!-- client strip -->
         <div class="pclients">
-          <p class="label">Trusted by</p>
+          <p class="label">Trusted by <b>TASK PR</b> clients</p>
           <div class="row">
             <img src="images/clients/trans/falke-dark.png" alt="FALKE" loading="lazy">
             <img src="images/clients/trans/marccain-dark.png" alt="Marc Cain" loading="lazy">
@@ -682,7 +694,7 @@
         <section class="sect psvc" id="s-services">
           <div class="sec-head">
             <p class="eyebrow">What we do</p>
-            <h2 class="d2">Integrated communications, built for modern brands</h2>
+            <h2 class="d2">Integrated communications, built for <em>modern brands</em></h2>
             <p class="body">Twelve disciplines working as one strategy — not separate teams.</p>
           </div>
           <div class="svc-grid">
@@ -729,7 +741,7 @@
         <section class="sect pnews" id="s-news">
           <div class="sec-head">
             <p class="eyebrow">News &amp; events</p>
-            <h2 class="d2">Latest in fashion PR</h2>
+            <h2 class="d2">Latest in <em>fashion PR</em></h2>
           </div>
           <div class="news-grid">
             <article class="ncard">
@@ -783,17 +795,17 @@
             <div class="foot-col">
               <h4>Get in touch</h4>
               <p class="small"><b>TASK PR Ltd UK</b><br>96 Great Titchfield Street<br>London W1W 6SQ</p>
-              <p class="small">+44 (0) 20 7636 1399<br>info@taskpr.com</p>
+              <p class="small">+44 (0) 20 7636 1399<br><span class="flink">info@taskpr.com</span></p>
             </div>
             <div class="foot-col">
               <h4>Germany</h4>
               <p class="small"><b>TASK PR GmbH</b><br>Munich &amp; Berlin, Germany</p>
-              <p class="small">info@taskpr.com</p>
+              <p class="small"><span class="flink">info@taskpr.com</span></p>
             </div>
             <div class="foot-col">
               <h4>Social</h4>
               <div class="foot-social"><span>IG</span><span>f</span><span>in</span><span>♪</span></div>
-              <p class="small" style="margin-top:15px">Privacy notice</p>
+              <p class="small" style="margin-top:15px"><span class="flink">Privacy notice</span></p>
             </div>
           </div>
           <p class="foot-bottom">© 2011 – 2026 Task PR Ltd. All rights reserved · Company Number 7518088 registered in England</p>
